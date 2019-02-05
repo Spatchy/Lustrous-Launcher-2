@@ -23,6 +23,8 @@ class Parser:
 class Encoder:
     def encode_json(self, json_to_encode, path):
         encoded_json = self.encode(json_to_encode)
+        self.write_file(encoded_json, path)
+        return True
 
     @staticmethod
     def write_file(encoded_json, path):
