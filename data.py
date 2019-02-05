@@ -41,7 +41,7 @@ class Settings:
     def write_settings(self):
         json.dumps({"search_on_start": self.search_on_start,
                     "show_search_prompt": self.show_search_prompt,
-                    "solid_searchbar_background":self.solid_searchbar_background,
+                    "solid_searchbar_background": self.solid_searchbar_background,
                     "show_steam_button": self.show_steam_button,
                     "steam_path": self.steam_path})
 

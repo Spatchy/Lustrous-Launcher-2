@@ -13,18 +13,18 @@ class Root(QWidget):
                             Qt.WA_TranslucentBackground)
 
         # Set window Geometry to full screen minus task bar height
-        self.width, self.height = self.getScreenGeometry()
+        self.width, self.height = self.get_screen_geometry()
         self.height -= 40
         self.setGeometry(0, 0, self.width, self.height)
 
         self.show()
 
     @staticmethod
-    def getScreenGeometry():
+    def get_screen_geometry():
         screen = QDesktopWidget().screenGeometry(-1)
         return screen.width(), screen.height()
 
-    def getWindowGeometry(self):
+    def get_window_geometry(self):
         return self.width, self.height
 
 
