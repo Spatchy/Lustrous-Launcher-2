@@ -1,5 +1,5 @@
-import json
 import sys
+import file_manager
 
 
 # Contains/generates various metadata
@@ -21,7 +21,7 @@ class AppMeta:
 
 class Settings:
     def __init__(self, settings_path):
-        self.settingsPath = settings_path
+        self.settings_path = settings_path
 
         self.search_on_start = False
         self.show_search_prompt = False
@@ -30,21 +30,23 @@ class Settings:
         self.steam_path = "C:/Program Files(x86)/Steam/Steam.exe"
 
     def read_settings(self):
-        with open(self.settingsPath) as settings_string:
-            settings_dict = json.loads(settings_string)
+        parser = file_manager.Parse(self.settings_path)
+        settings_dict = parser.parsed_json
 
-            self.search_on_start = self.booleanize(settings_dict["search_on_start"])
-            self.show_search_prompt = self.booleanize(settings_dict["show_search_prompt"])
-            self.solid_searchbar_background = self.booleanize(settings_dict["solid_searchbar_background"])
-            self.show_steam_button = self.booleanize(settings_dict["show_steam_button"])
-            self.steam_path = settings_dict["steam_path"]
+        self.search_on_start = self.booleanize(settings_dict["search_on_start"])
+        self.show_search_prompt = self.booleanize(settings_dict["show_search_prompt"])
+        self.solid_searchbar_background = self.booleanize(settings_dict["solid_searchbar_background"])
+        self.show_steam_button = self.booleanize(settings_dict["show_steam_button"])
+        self.steam_path = settings_dict["steam_path"]
 
     def write_settings(self):
-        json.dumps({"search_on_start": self.search_on_start,
-                    "show_search_prompt": self.show_search_prompt,
-                    "solid_searchbar_background": self.solid_searchbar_background,
-                    "show_steam_button": self.show_steam_button,
-                    "steam_path": self.steam_path})
+        settings_dict = {"search_on_start": self.search_on_start,
+                         "show_search_prompt": self.show_search_prompt,
+                         "solid_searchbar_background": self.solid_searchbar_background,
+                         "show_steam_button": self.show_steam_button,
+                         "steam_path": self.steam_path}
+
+        file_manager.Encode(settings_dict, self.settings_path)
 
     @staticmethod
     def booleanize(string_to_convert):
@@ -73,8 +75,8 @@ class ThemeEngine:
             self.load_theme()
 
     def open_manifest(self):
-        with open(self.theme_manifest) as theme_string:
-            return json.loads(theme_string)
+        parser = file_manager.Parse(self.theme_manifest)
+        return parser.parsed_json
 
     def load_theme(self):
         self.primary_color = self.theme_dict["primary_color"]
