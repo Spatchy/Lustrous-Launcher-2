@@ -34,3 +34,8 @@ class Encoder:
     @staticmethod
     def encode(json_to_encode):
         return json.dumps(json_to_encode)
+
+
+# create parser and encoder objects
+parser = Parser
+encoder = Encoder

@@ -2,6 +2,7 @@ import json
 import sys
 
 
+# Contains/generates various metadata
 class AppMeta:
     def __init__(self):
         self.VERSION = "2.0.0"
