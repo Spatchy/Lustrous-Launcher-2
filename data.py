@@ -1,16 +1,10 @@
 import sys
 import file_manager
+import enum
 
 
 # Contains/generates various metadata
-class AppMeta:
-    def __init__(self):
-        self.VERSION = "2.0.0"
-        self.REPOSITORY = "https://spatchy.github.io/Lustrous-Launcher-2"
-        self.RELEASE = "/releases/latest"
-        self.SETTINGS_PATH = "./settings.json"
-        self.LOG_PATH = "./ll.log"
-        self.IS_FROZEN = self.check_frozen()
+class AppMeta(enum):
 
     @staticmethod
     def check_frozen():
@@ -18,6 +12,13 @@ class AppMeta:
             return True
         else:
             return False
+
+    VERSION = "2.0.0"
+    REPOSITORY = "https://spatchy.github.io/Lustrous-Launcher-2"
+    RELEASE = "/releases/latest"
+    SETTINGS_PATH = "./settings.json"
+    LOG_PATH = "./ll.log"
+    IS_FROZEN = check_frozen()
 
 
 class Settings:
