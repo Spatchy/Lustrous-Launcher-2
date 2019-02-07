@@ -9,6 +9,7 @@ class AppMeta:
         self.REPOSITORY = "https://spatchy.github.io/Lustrous-Launcher-2"
         self.RELEASE = "/releases/latest"
         self.SETTINGS_PATH = "./settings.json"
+        self.LOG_PATH = "./ll.log"
         self.IS_FROZEN = self.check_frozen()
 
     @staticmethod
@@ -28,6 +29,7 @@ class Settings:
         self.solid_searchbar_background = False
         self.show_steam_button = True
         self.steam_path = "C:/Program Files(x86)/Steam/Steam.exe"
+        self.do_logging = False
 
     def read_settings(self):
         parser = file_manager.Parse(self.settings_path)
@@ -38,13 +40,15 @@ class Settings:
         self.solid_searchbar_background = self.booleanize(settings_dict["solid_searchbar_background"])
         self.show_steam_button = self.booleanize(settings_dict["show_steam_button"])
         self.steam_path = settings_dict["steam_path"]
+        self.do_logging = self.booleanize(settings_dict["do_logging"])
 
     def write_settings(self):
         settings_dict = {"search_on_start": self.search_on_start,
                          "show_search_prompt": self.show_search_prompt,
                          "solid_searchbar_background": self.solid_searchbar_background,
                          "show_steam_button": self.show_steam_button,
-                         "steam_path": self.steam_path}
+                         "steam_path": self.steam_path,
+                         "do_logging":self.do_logging}
 
         file_manager.Encode(settings_dict, self.settings_path)
 

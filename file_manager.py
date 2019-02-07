@@ -1,4 +1,5 @@
 import json
+import enum
 
 
 # returns the JSON content of a file when given a path to read from
@@ -32,3 +33,18 @@ class Encode:
     @staticmethod
     def encode(json_to_encode):
         return json.dumps(json_to_encode)
+
+
+class DumpMode(enum):
+    Append = "a"
+    Overwrite = "w"
+
+
+class Dump:
+    def __init__(self, raw_string, path, mode=DumpMode.Overwrite):
+        self.dump(raw_string, path, mode)
+
+    @staticmethod
+    def dump(raw_string, path):
+        with open(path, mode) as file:
+            file.write(raw_string)
