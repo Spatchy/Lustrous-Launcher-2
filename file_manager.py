@@ -1,5 +1,7 @@
 import json
 import enum
+import os
+from data import AppMeta
 
 
 # returns the JSON content of a file when given a path to read from
@@ -48,3 +50,12 @@ class Dump:
     def dump(raw_string, path):
         with open(path, mode) as file:
             file.write(raw_string)
+
+
+class InitialTreeSetup:
+    def __init__(self):
+        os.mkdir("./games")
+        os.mkdir("./games/steamgames")
+        os.mkdir("./games/steamgames/shortcuts")
+        os.mkdir("./banners")
+        os.mkdir("./banners/bannerpacks")

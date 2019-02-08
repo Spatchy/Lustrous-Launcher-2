@@ -1,4 +1,5 @@
 import sys
+import os
 import file_manager
 import enum
 
@@ -13,12 +14,20 @@ class AppMeta(enum):
         else:
             return False
 
+    @staticmethod
+    def check_first_launch():
+        if os.path.isdir("./games"):
+            return False
+        else:
+            return True
+
     VERSION = "2.0.0"
     REPOSITORY = "https://spatchy.github.io/Lustrous-Launcher-2"
     RELEASE = "/releases/latest"
     SETTINGS_PATH = "./settings.json"
     LOG_PATH = "./ll.log"
     IS_FROZEN = check_frozen()
+    IS_FIRST_LAUNCH = check_first_launch()
 
 
 class Settings:
