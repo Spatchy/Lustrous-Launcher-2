@@ -58,3 +58,4 @@ class InitialTreeSetup:
         os.mkdir("./games/steamgames/shortcuts")
         os.mkdir("./banners")
         os.mkdir("./banners/bannerpacks")
+        os.mkdir("./themes")
