@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import *
+from data import ThemeEngine
 
 
 class Root(QWidget):
@@ -39,6 +40,7 @@ class Sidebar(QWidget):
 class Game(QLabel):
     def __init__(self, name, banner_path, link):
         super().__init__()
+        self.setMouseTracking(True)
 
         self.name = name
         self.banner_path = banner_path
@@ -47,10 +49,14 @@ class Game(QLabel):
         self.banner = self.create_banner
 
         self.setPixmap(self.banner)
+        self.setStyleSheet("border: 2px solid #00000000")
 
     def create_banner(self):
         banner_object = QPixmap(self.banner_path)
         return banner_object
+
+    def mouse_move_event(self, event):
+        self.setStyleSheet("border: 2px solid " + ThemeEngine.title_outer_highlight_color)
 
 
 if __name__ == '__main__':
