@@ -36,6 +36,23 @@ class Sidebar(QWidget):
         self.width = 48
 
 
+class Game(QLabel):
+    def __init__(self, name, banner_path, link):
+        super().__init__()
+
+        self.name = name
+        self.banner_path = banner_path
+        self.link = link
+
+        self.banner = self.create_banner
+
+        self.setPixmap(self.banner)
+
+    def create_banner(self):
+        banner_object = QPixmap(self.banner_path)
+        return banner_object
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     root = Root()
