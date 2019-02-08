@@ -58,7 +58,7 @@ class Settings:
                          "solid_searchbar_background": self.solid_searchbar_background,
                          "show_steam_button": self.show_steam_button,
                          "steam_path": self.steam_path,
-                         "do_logging":self.do_logging}
+                         "do_logging": self.do_logging}
 
         file_manager.Encode(settings_dict, self.settings_path)
 
