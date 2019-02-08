@@ -47,7 +47,7 @@ class Dump:
         self.dump(raw_string, path, mode)
 
     @staticmethod
-    def dump(raw_string, path):
+    def dump(raw_string, path, mode):
         with open(path, mode) as file:
             file.write(raw_string)
 
