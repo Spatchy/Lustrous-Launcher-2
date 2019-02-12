@@ -70,19 +70,20 @@ class Settings:
             return False
 
 
+class Theme(enum):
+    # set default values
+    primary_color = "#D83434"  # the primary accent color
+    background_color = "#000000"  # the background color of the launcher
+    background_alpha = 70  # the transparency of the background of the launcher
+    sidebar_background_color = "#060606"  # the background color of the sidebar
+    button_outer_highlight_color = "#222222"  # the outer highlight when a button is hovered over
+    title_outer_highlight_color = "#777777"  # the outer highlight when a game is hovered over
+    title_inner_highlight_color = primary_color  # the color of a game selected for editing
+    searchbar_background_color = sidebar_background_color  # the color of the searchbar
+
+
 class ThemeEngine:
     def __init__(self, theme_name):
-
-        # set default values
-        self.primary_color = "#D83434"  # the primary accent color
-        self.background_color = "#000000"  # the background color of the launcher
-        self.background_alpha = 70  # the transparency of the background of the launcher
-        self.sidebar_background_color = "#060606"  # the background color of the sidebar
-        self.button_outer_highlight_color = "#222222"  # the outer highlight when a button is hovered over
-        self.title_outer_highlight_color = "#777777"  # the outer highlight when a game is hovered over
-        self.title_inner_highlight_color = self.primary_color  # the color of a game selected for editing
-        self.searchbar_background_color = self.sidebar_background_color  # the color of the searchbar
-
         if theme_name is not None:
             self.theme_manifest = "./themes/" + theme_name + "/manifest.json"
             self.theme_dict = self.open_manifest()
@@ -92,15 +93,16 @@ class ThemeEngine:
         parser = file_manager.Parse(self.theme_manifest)
         return parser.parsed_json
 
-    def load_theme(self):
-        self.primary_color = self.theme_dict["primary_color"]
-        self.background_color = self.theme_dict["background_color"]
-        self.background_alpha = int(self.theme_dict["background_alpha"])
-        self.sidebar_background_color = self.theme_dict["sidebar_background_color"]
-        self.button_outer_highlight_color = self.theme_dict["button_outer_highlight_color"]
-        self.title_outer_highlight_color = self.theme_dict["title_outer_highlight_color"]
-        self.title_inner_highlight_color = self.theme_dict["title_inner_highlight_color"]
-        self.searchbar_background_color = self.theme_dict["searchbar_background_color"]
+    @staticmethod
+    def load_theme():
+        Theme.primary_color = Theme.theme_dict["primary_color"]
+        Theme.background_color = Theme.theme_dict["background_color"]
+        Theme.background_alpha = int(Theme.theme_dict["background_alpha"])
+        Theme.sidebar_background_color = Theme.theme_dict["sidebar_background_color"]
+        Theme.button_outer_highlight_color = Theme.theme_dict["button_outer_highlight_color"]
+        Theme.title_outer_highlight_color = Theme.theme_dict["title_outer_highlight_color"]
+        Theme.title_inner_highlight_color = Theme.theme_dict["title_inner_highlight_color"]
+        Theme.searchbar_background_color = Theme.theme_dict["searchbar_background_color"]
 
 
 class Game:
