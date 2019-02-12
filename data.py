@@ -101,3 +101,10 @@ class ThemeEngine:
         self.title_outer_highlight_color = self.theme_dict["title_outer_highlight_color"]
         self.title_inner_highlight_color = self.theme_dict["title_inner_highlight_color"]
         self.searchbar_background_color = self.theme_dict["searchbar_background_color"]
+
+
+class Game:
+    def __init__(self, name, banner_path, link):
+        self.name = name
+        self.banner_path = banner_path
+        self.link = link

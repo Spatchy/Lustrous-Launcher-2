@@ -37,15 +37,12 @@ class Sidebar(QWidget):
         self.width = 48
 
 
-class Game(QLabel):
-    def __init__(self, name, banner_path, link):
+class GamePanel(QLabel):
+    def __init__(self, game_object):
         super().__init__()
         self.setMouseTracking(True)
 
-        self.name = name
-        self.banner_path = banner_path
-        self.link = link
-
+        self.game = game_object
         self.banner = self.create_banner
 
         self.setPixmap(self.banner)
