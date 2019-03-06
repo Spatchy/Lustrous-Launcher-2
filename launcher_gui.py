@@ -15,16 +15,15 @@ class Root(QWidget):
                             Qt.WA_TranslucentBackground)
 
         # Set window Geometry to full screen minus task bar height
-        monitor_info = GetMonitorInfo(MonitorFromPoint((0, 0)))
-        work_area = monitor_info.get("Work")
-        self.setGeometry(work_area[0], work_area[1], work_area[2], work_area[3])
+        self.setGeometry(self.get_work_area_geometry())
 
         self.show()
 
     @staticmethod
-    def get_screen_geometry():
-        screen = QDesktopWidget().screenGeometry(-1)
-        return screen.width(), screen.height()
+    def get_work_area_geometry():
+        monitor_info = GetMonitorInfo(MonitorFromPoint((0, 0)))
+        work_area = monitor_info.get("Work")
+        return work_area[0], work_area[1], work_area[2], work_area[3]
 
     def get_window_geometry(self):
         return self.width, self.height
@@ -54,7 +53,7 @@ class GamePanel(QLabel):
         return banner_object
 
     def mouse_move_event(self, event):
-        self.setStyleSheet("border: 2px solid " + Theme.title_outer_highlight_color)
+        self.setStyleSheet("border: 2px solid " + str(Theme.title_outer_highlight_color))
 
 
 if __name__ == '__main__':
