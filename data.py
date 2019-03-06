@@ -26,8 +26,8 @@ class AppMeta(Enum):
     RELEASE = "/releases/latest"
     SETTINGS_PATH = "./settings.json"
     LOG_PATH = "./ll.log"
-    IS_FROZEN = check_frozen()
-    IS_FIRST_LAUNCH = check_first_launch()
+    IS_FROZEN = check_frozen.__func__()
+    IS_FIRST_LAUNCH = check_first_launch.__func__()
 
 
 class Settings:
