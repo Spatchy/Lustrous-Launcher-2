@@ -15,7 +15,7 @@ class Root(QWidget):
                             Qt.WA_TranslucentBackground)
 
         # Set window Geometry to full screen minus task bar height
-        self.setGeometry(self.get_work_area_geometry())
+        self.setGeometry(*self.get_work_area_geometry())
 
         self.show()
 
