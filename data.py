@@ -1,11 +1,11 @@
 import sys
 import os
 import file_manager
-import enum
+from enum import Enum
 
 
 # Contains/generates various metadata
-class AppMeta(enum):
+class AppMeta(Enum):
 
     @staticmethod
     def check_frozen():
@@ -70,7 +70,7 @@ class Settings:
             return False
 
 
-class Theme(enum):
+class Theme(Enum):
     # set default values
     primary_color = "#D83434"  # the primary accent color
     background_color = "#000000"  # the background color of the launcher

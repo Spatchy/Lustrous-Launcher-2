@@ -1,5 +1,5 @@
 import json
-import enum
+from enum import Enum
 import os
 
 
@@ -36,7 +36,7 @@ class Encode:
         return json.dumps(json_to_encode)
 
 
-class DumpMode(enum):
+class DumpMode(Enum):
     Append = "a"
     Overwrite = "w"
 
