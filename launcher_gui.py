@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import *
 from data import Theme
+from win32api import GetMonitorInfo, MonitorFromPoint
 
 
 class Root(QWidget):
@@ -14,9 +15,9 @@ class Root(QWidget):
                             Qt.WA_TranslucentBackground)
 
         # Set window Geometry to full screen minus task bar height
-        self.width, self.height = self.get_screen_geometry()
-        self.height -= 40
-        self.setGeometry(0, 0, self.width, self.height)
+        monitor_info = GetMonitorInfo(MonitorFromPoint((0, 0)))
+        work_area = monitor_info.get("Work")
+        self.setGeometry(work_area[0], work_area[1], work_area[2], work_area[3])
 
         self.show()
 
