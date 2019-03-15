@@ -17,7 +17,19 @@ class Root(QWidget):
         # Set window Geometry to full screen minus task bar height
         self.setGeometry(*self.get_work_area_geometry())
 
+        self.installEventFilter(self)
+
         self.show()
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            sys.exit()
+
+    def eventFilter(self, obj, e):
+        if e.type() == QEvent.WindowDeactivate:
+            print("focus lost")
+            sys.exit()
+        return True
 
     @staticmethod
     def get_work_area_geometry():
