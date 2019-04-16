@@ -53,6 +53,10 @@ class Dump:
 
 class InitialTreeSetup:
     def __init__(self):
+        self.do_setup()
+
+    @staticmethod
+    def do_setup():
         os.mkdir("./games")
         os.mkdir("./games/steamgames")
         os.mkdir("./games/steamgames/shortcuts")
