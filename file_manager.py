@@ -3,57 +3,7 @@ from enum import Enum
 import os
 
 
-# returns the JSON content of a file when given a path to read from
-class Parse:
-    def __init__(self, path):
-        content = self.read_file(path)
-        self.parsed_json = self.parse(content)
-
-    @staticmethod
-    def read_file(path):
-        with open(path, "r") as file:
-            contents = file.read()
-        return contents
-
-    @staticmethod
-    def parse(content):
-        return json.loads(content)
-
-
-# encodes json to a file when given json to encode and a path to write to
-class Encode:
-    def __init__(self, json_to_encode, path):
-        encoded_json = self.encode(json_to_encode)
-        self.write_file(encoded_json, path)
-
-    @staticmethod
-    def write_file(encoded_json, path):
-        with open(path, "w") as file:
-            file.write(encoded_json)
-
-    @staticmethod
-    def encode(json_to_encode):
-        return json.dumps(json_to_encode)
-
-
-class DumpMode(Enum):
-    Append = "a"
-    Overwrite = "w"
-
-
-class Dump:
-    def __init__(self, raw_string, path, mode=DumpMode.Overwrite):
-        self.dump(raw_string, path, mode)
-
-    @staticmethod
-    def dump(raw_string, path, mode):
-        with open(path, mode) as file:
-            file.write(raw_string)
-
-
-class InitialTreeSetup:
-    def __init__(self):
-        self.do_setup()
+class FileTree:  # IN PROGRESS OF MOVING EVERYTHING INTO HERE
 
     @staticmethod
     def do_setup():
@@ -63,3 +13,20 @@ class InitialTreeSetup:
         os.mkdir("./banners")
         os.mkdir("./banners/bannerpacks")
         os.mkdir("./themes")
+
+    @staticmethod
+    def dump(raw_string, path, mode="w"):
+        with open(path, mode) as file:
+            file.write(raw_string)
+
+    @staticmethod
+    def write_file(json_to_encode, path):
+        encoded_json = json.dumps(json_to_encode)
+        with open(path, "w") as file:
+            file.write(encoded_json)
+
+    @staticmethod
+    def read_file(path):
+        with open(path, "r") as file:
+            contents = file.read()
+        return json.loads(contents)
