@@ -1,6 +1,6 @@
 import sys
 import os
-import file_manager
+from file_manager import FileTree
 from enum import Enum
 
 
@@ -26,8 +26,8 @@ class AppMeta(Enum):
     RELEASE = "/releases/latest"
     SETTINGS_PATH = "./settings.json"
     LOG_PATH = "./ll.log"
-    IS_FROZEN = check_frozen.__func__()
-    IS_FIRST_LAUNCH = check_first_launch.__func__()
+    IS_FROZEN = check_frozen.__func__()  # PyCharm marks this a potentially bad, it's not
+    IS_FIRST_LAUNCH = check_first_launch.__func__()  # PyCharm marks this a potentially bad, it's not
 
 
 class Settings:
@@ -42,8 +42,7 @@ class Settings:
         self.do_logging = False
 
     def read_settings(self):
-        parser = file_manager.Parse(self.settings_path)
-        settings_dict = parser.parsed_json
+        settings_dict = FileTree.read_file(self.settings_path)
 
         self.search_on_start = self.booleanize(settings_dict["search_on_start"])
         self.show_search_prompt = self.booleanize(settings_dict["show_search_prompt"])
@@ -60,7 +59,7 @@ class Settings:
                          "steam_path": self.steam_path,
                          "do_logging": self.do_logging}
 
-        file_manager.Encode(settings_dict, self.settings_path)
+        FileTree.write_file(settings_dict, self.settings_path)
 
     @staticmethod
     def booleanize(string_to_convert):
@@ -90,8 +89,7 @@ class ThemeEngine:
             self.load_theme()
 
     def open_manifest(self):
-        parser = file_manager.Parse(self.theme_manifest)
-        return parser.parsed_json
+        return FileTree.read_file(self.theme_manifest)
 
     @staticmethod
     def load_theme():
