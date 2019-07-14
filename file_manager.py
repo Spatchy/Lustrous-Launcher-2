@@ -1,18 +1,14 @@
 import json
-from enum import Enum
 import os
+# DO NOT IMPORT FROM DATA
 
 
-class FileTree:  # IN PROGRESS OF MOVING EVERYTHING INTO HERE
+class FileTree:
 
     @staticmethod
-    def do_setup():
-        os.mkdir("./games")
-        os.mkdir("./games/steamgames")
-        os.mkdir("./games/steamgames/shortcuts")
-        os.mkdir("./banners")
-        os.mkdir("./banners/bannerpacks")
-        os.mkdir("./themes")
+    def create_dirs(paths):
+        for folder in paths:
+            os.mkdir(folder)
 
     @staticmethod
     def dump(raw_string, path, mode="w"):

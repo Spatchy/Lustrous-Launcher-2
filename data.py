@@ -2,6 +2,7 @@ import sys
 import os
 from file_manager import FileTree
 from enum import Enum
+from collections import OrderedDict
 
 
 # Contains/generates various metadata
@@ -26,6 +27,12 @@ class AppMeta(Enum):
     RELEASE = "/releases/latest"
     SETTINGS_PATH = "./settings.json"
     LOG_PATH = "./ll.log"
+    DIRS = OrderedDict([("games", "./games"),  # order must be maintained so subdirectories are created properly
+                        ("steam games", "./games/steamgames"),
+                        ("steam shortcuts", "./games/steamgames/shortcuts"),
+                        ("banners", "./banners"),
+                        ("banner packs", "./banners/bannerpacks"),
+                        ("themes", "./themes")])
     IS_FROZEN = check_frozen.__func__()  # PyCharm marks this a potentially bad, it's not
     IS_FIRST_LAUNCH = check_first_launch.__func__()  # PyCharm marks this a potentially bad, it's not
 
@@ -84,7 +91,8 @@ class Theme(Enum):
 class ThemeEngine:
     def __init__(self, theme_name):
         if theme_name is not None:
-            self.theme_manifest = "./themes/" + theme_name + "/manifest.json"
+            print(AppMeta.DIRS["themes"])
+            self.theme_manifest = AppMeta.DIRS["themes"] + theme_name + "/manifest.json"
             self.theme_dict = self.open_manifest()
             self.load_theme()
 
