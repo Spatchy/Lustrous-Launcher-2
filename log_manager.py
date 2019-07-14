@@ -1,5 +1,5 @@
 import datetime
-import file_manager
+from file_manager import FileTree
 from data import AppMeta
 
 
@@ -14,5 +14,5 @@ class DumpLog:
         self.string_to_dump = str(current_time) + " | " + self.string_to_dump
 
     def do_dump(self):
-        file_manager.Dump(self.string_to_dump, AppMeta.LOG_PATH, file_manager.DumpMode.Append)
+        FileTree.dump(self.string_to_dump, AppMeta.LOG_PATH, "a")
 
