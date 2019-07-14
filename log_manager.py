@@ -14,5 +14,5 @@ class DumpLog:
         self.string_to_dump = str(current_time) + " | " + self.string_to_dump
 
     def do_dump(self):
-        FileTree.dump(self.string_to_dump, AppMeta.LOG_PATH, "a")
+        FileTree.dump(self.string_to_dump, AppMeta.LOG_PATH.value, "a")
 
