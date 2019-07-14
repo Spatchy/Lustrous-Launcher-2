@@ -3,9 +3,7 @@ from file_manager import FileTree
 
 
 def do_setup():
-    path_list = []
-    for folder in AppMeta.DIRS.values():
-        path_list.append(folder)
+    path_list = list(AppMeta.DIRS.value.values())
     FileTree.create_dirs(path_list)
 
 

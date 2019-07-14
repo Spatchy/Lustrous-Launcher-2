@@ -91,7 +91,6 @@ class Theme(Enum):
 class ThemeEngine:
     def __init__(self, theme_name):
         if theme_name is not None:
-            print(AppMeta.DIRS["themes"])
             self.theme_manifest = AppMeta.DIRS["themes"] + theme_name + "/manifest.json"
             self.theme_dict = self.open_manifest()
             self.load_theme()
