@@ -1,5 +1,6 @@
 import json
 import os
+import glob
 # DO NOT IMPORT FROM DATA
 
 
@@ -26,3 +27,7 @@ class FileTree:
         with open(path, "r") as file:
             contents = file.read()
         return json.loads(contents)
+
+    @staticmethod
+    def dir_contents(path):
+        return glob.glob(path)
