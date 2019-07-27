@@ -28,8 +28,8 @@ class AppMeta(Enum):
     SETTINGS_PATH = "./settings.json"
     LOG_PATH = "./ll.log"
     DIRS = OrderedDict([("games", "./games"),  # order must be maintained so subdirectories are created properly
-                        ("steam games", "./games/steamgames"),
-                        ("steam shortcuts", "./games/steamgames/shortcuts"),
+                        ("shortcuts", "./games/shortcuts"),
+                        ("steam shortcuts", "./games/shortcuts/steam"),
                         ("banners", "./banners"),
                         ("banner packs", "./banners/bannerpacks"),
                         ("themes", "./themes")])
