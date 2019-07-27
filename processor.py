@@ -16,7 +16,8 @@ def create_game_dict():  # creates alphabetized OrderedDict of all games from ga
         game_title = file_json["title"]
         game_path = file_json["path"]
         banner_name = file_json["banner_path"]
-        game_dict[game_title] = Game(game_title, game_path, banner_name)
+        platform = file_json["platform"]
+        game_dict[game_title] = Game(game_title, game_path, banner_name, platform)
     return game_dict
 
 

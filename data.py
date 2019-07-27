@@ -111,7 +111,8 @@ class ThemeEngine:
 
 
 class Game:
-    def __init__(self, name, banner_path, link):
+    def __init__(self, name, banner_path, link, platform):
         self.name = name
         self.banner_path = banner_path
         self.link = link
+        self.platform = platform
