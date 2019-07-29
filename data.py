@@ -61,28 +61,6 @@ class DefaultTheme(Enum):
     SEARCHBAR_BACKGROUND_COLOR = SIDEBAR_BACKGROUND_COLOR  # the color of the searchbar
 
 
-class ThemeEngine:
-    def __init__(self, theme_name):
-        if theme_name is not None:
-            self.theme_manifest = AppMeta.DIRS["themes"] + theme_name + "/manifest.json"
-            self.theme_dict = self.open_manifest()
-            self.load_theme()
-
-    def open_manifest(self):
-        return FileTree.read_file(self.theme_manifest)
-
-    @staticmethod
-    def load_theme():
-        Theme.primary_color = Theme.theme_dict["primary_color"]
-        Theme.background_color = Theme.theme_dict["background_color"]
-        Theme.background_alpha = int(Theme.theme_dict["background_alpha"])
-        Theme.sidebar_background_color = Theme.theme_dict["sidebar_background_color"]
-        Theme.button_outer_highlight_color = Theme.theme_dict["button_outer_highlight_color"]
-        Theme.title_outer_highlight_color = Theme.theme_dict["title_outer_highlight_color"]
-        Theme.title_inner_highlight_color = Theme.theme_dict["title_inner_highlight_color"]
-        Theme.searchbar_background_color = Theme.theme_dict["searchbar_background_color"]
-
-
 class Game:
     def __init__(self, name, banner_path, link, platform):
         self.name = name
