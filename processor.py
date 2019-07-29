@@ -23,15 +23,20 @@ def create_game_dict():  # creates alphabetized OrderedDict of all games from ga
 
 
 class SettingsEngine:
-    settings_dict = FileTree.read_file(AppMeta.SETTINGS_PATH.value)
+    settings_dict = None
 
-    @staticmethod
-    def apply_default_settings():
-        settings_dict = OrderedDict()  # probably best to keep this ordered
+    @classmethod
+    def bind_settings_dict(cls):  # binds settings_dict to the settings file only once created
+        cls.settings_dict = FileTree.read_file(AppMeta.SETTINGS_PATH.value)
+
+    @classmethod
+    def apply_default_settings(cls):
+        cls.settings_dict = OrderedDict()  # probably best to keep this ordered
         # noinspection PyTypeChecker
         for member in DefaultSettings:  # convert default settings to ordered dict
-            settings_dict[str(member.name).lower()] = member.value
-        FileTree.write_file(settings_dict, AppMeta.SETTINGS_PATH.value)  # json.dumps handles OrderedDicts fine
+            cls.settings_dict[str(member.name).lower()] = member.value
+        FileTree.write_file(cls.settings_dict, AppMeta.SETTINGS_PATH.value)  # json.dumps handles OrderedDicts fine
+        cls.bind_settings_dict()
 
     @classmethod
     def change_setting(cls, setting_to_change, new_value):
@@ -47,4 +52,7 @@ if __name__ == "__main__":
     if AppMeta.IS_FIRST_LAUNCH:
         # do_setup()
         # SettingsEngine.apply_default_settings()
+        pass
+    else:
+        # SettingsEngine.bind_settings_dict()
         pass
