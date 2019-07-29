@@ -28,7 +28,7 @@ class SettingsEngine:
     settings_dict = None
 
     @classmethod
-    def bind_settings_dict(cls):  # binds settings_dict to the settings file only once created
+    def load_settings(cls):  # binds settings_dict to the settings file only once created
         cls.settings_dict = FileTree.read_file(AppMeta.SETTINGS_PATH.value)
 
     @classmethod
@@ -38,7 +38,7 @@ class SettingsEngine:
         for member in DefaultSettings:  # convert default settings to ordered dict
             cls.settings_dict[str(member.name).lower()] = member.value
         FileTree.write_file(cls.settings_dict, AppMeta.SETTINGS_PATH.value)  # json.dumps handles OrderedDicts fine
-        cls.bind_settings_dict()
+        cls.load_settings()
 
     @classmethod
     def change_setting(cls, setting_to_change, new_value):
@@ -82,5 +82,5 @@ if __name__ == "__main__":
         # SettingsEngine.apply_default_settings()
         pass
     else:
-        # SettingsEngine.bind_settings_dict()
+        # SettingsEngine.load_settings()
         pass
