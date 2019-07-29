@@ -1,7 +1,7 @@
 import sys
 import os
 from file_manager import FileTree
-from enum import Enum
+from aenum import Enum, NoAlias
 from collections import OrderedDict
 
 
@@ -37,43 +37,15 @@ class AppMeta(Enum):
     IS_FIRST_LAUNCH = check_first_launch.__func__()  # PyCharm marks this a potentially bad, it's not
 
 
-class Settings:
-    def __init__(self, settings_path):
-        self.settings_path = settings_path
+class DefaultSettings(Enum):
+    _settings_ = NoAlias  # allow multiple members to have the same value
 
-        self.search_on_start = False
-        self.show_search_prompt = False
-        self.solid_searchbar_background = False
-        self.show_steam_button = True
-        self.steam_path = "C:/Program Files(x86)/Steam/Steam.exe"
-        self.do_logging = False
-
-    def read_settings(self):
-        settings_dict = FileTree.read_file(self.settings_path)
-
-        self.search_on_start = self.booleanize(settings_dict["search_on_start"])
-        self.show_search_prompt = self.booleanize(settings_dict["show_search_prompt"])
-        self.solid_searchbar_background = self.booleanize(settings_dict["solid_searchbar_background"])
-        self.show_steam_button = self.booleanize(settings_dict["show_steam_button"])
-        self.steam_path = settings_dict["steam_path"]
-        self.do_logging = self.booleanize(settings_dict["do_logging"])
-
-    def write_settings(self):
-        settings_dict = {"search_on_start": self.search_on_start,
-                         "show_search_prompt": self.show_search_prompt,
-                         "solid_searchbar_background": self.solid_searchbar_background,
-                         "show_steam_button": self.show_steam_button,
-                         "steam_path": self.steam_path,
-                         "do_logging": self.do_logging}
-
-        FileTree.write_file(settings_dict, self.settings_path)
-
-    @staticmethod
-    def booleanize(string_to_convert):
-        if string_to_convert.lower() == "true":
-            return True
-        else:
-            return False
+    SEARCH_ON_START = False
+    SHOW_SEARCH_PROMPT = False
+    SOLID_SEARCHBAR_BACKGROUND = False
+    SHOW_STEAM_BUTTON = True
+    STEAM_PATH = "C:/Program Files(x86)/Steam/Steam.exe"
+    DO_LOGGING = False
 
 
 class Theme(Enum):
