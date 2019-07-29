@@ -48,16 +48,17 @@ class DefaultSettings(Enum):
     DO_LOGGING = False
 
 
-class Theme(Enum):
-    # set default values
-    primary_color = "#D83434"  # the primary accent color
-    background_color = "#000000"  # the background color of the launcher
-    background_alpha = 70  # the transparency of the background of the launcher
-    sidebar_background_color = "#060606"  # the background color of the sidebar
-    button_outer_highlight_color = "#222222"  # the outer highlight when a button is hovered over
-    title_outer_highlight_color = "#777777"  # the outer highlight when a game is hovered over
-    title_inner_highlight_color = primary_color  # the color of a game selected for editing
-    searchbar_background_color = sidebar_background_color  # the color of the searchbar
+class DefaultTheme(Enum):
+    __settings__ = NoAlias  # allow multiple members to have the same value
+
+    PRIMARY_COLOR = "#D83434"  # the primary accent color
+    BACKGROUND_COLOR = "#000000"  # the background color of the launcher
+    BACKGROUND_ALPHA = 70  # the transparency of the background of the launcher
+    SIDEBAR_BACKGROUND_COLOR = "#060606"  # the background color of the sidebar
+    BUTTON_OUTER_HIGHLIGHT_COLOR = "#222222"  # the outer highlight when a button is hovered over
+    TITLE_OUTER_HIGHLIGHT_COLOR = "#777777"  # the outer highlight when a game is hovered over
+    TITLE_INNER_HIGHLIGHT_COLOR = PRIMARY_COLOR  # the color of a game selected for editing
+    SEARCHBAR_BACKGROUND_COLOR = SIDEBAR_BACKGROUND_COLOR  # the color of the searchbar
 
 
 class ThemeEngine:
