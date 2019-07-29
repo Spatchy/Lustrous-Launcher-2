@@ -1,5 +1,6 @@
 from data import AppMeta
 from data import Game
+from data import DefaultSettings
 from file_manager import FileTree
 from collections import OrderedDict
 
@@ -7,6 +8,14 @@ from collections import OrderedDict
 def do_setup():
     path_list = list(AppMeta.DIRS.value.values())
     FileTree.create_dirs(path_list)
+
+
+def apply_default_settings():
+    settings_dict = OrderedDict()  # probably best to keep this ordered
+    # noinspection PyTypeChecker
+    for member in DefaultSettings:  # convert default settings to ordered dict
+        settings_dict[str(member.name).lower()] = member.value
+    FileTree.write_file(settings_dict, AppMeta.SETTINGS_PATH.value)  # json.dumps handles OrderedDicts fine
 
 
 def create_game_dict():  # creates alphabetized OrderedDict of all games from games dir
@@ -21,7 +30,21 @@ def create_game_dict():  # creates alphabetized OrderedDict of all games from ga
     return game_dict
 
 
+class SettingsEngine:
+    settings_dict = FileTree.read_file(AppMeta.SETTINGS_PATH.value)
+
+    @classmethod
+    def change_setting(cls, setting_to_change, new_value):
+        cls.settings_dict[setting_to_change] = new_value
+
+    @classmethod
+    def write_settings(cls):
+        FileTree.write_file(cls.settings_dict, AppMeta.settings_path)
+
+
 # Is immediately run on program launch
 if __name__ == "__main__":
     if AppMeta.IS_FIRST_LAUNCH:
-        do_setup()
+        # do_setup()
+        # apply_default_settings()
+        pass
