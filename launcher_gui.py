@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import *
-from data import Theme
+from processor import ThemeEngine
 from win32api import GetMonitorInfo, MonitorFromPoint
 
 
@@ -65,7 +65,7 @@ class GamePanel(QLabel):
         return banner_object
 
     def mouse_move_event(self, event):
-        self.setStyleSheet("border: 2px solid " + str(Theme.title_outer_highlight_color))
+        self.setStyleSheet("border: 2px solid " + ThemeEngine.theme_dict["title_outer_highlight_color"])
 
 
 if __name__ == '__main__':
