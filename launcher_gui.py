@@ -68,7 +68,7 @@ class GamePanel(QLabel):
         self.setStyleSheet("border: 2px solid " + ThemeEngine.theme_dict["title_outer_highlight_color"])
 
 
-if __name__ == '__main__':
+def run_gui():
     app = QApplication(sys.argv)
     root = Root()
     sys.exit(app.exec_())
