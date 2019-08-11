@@ -5,6 +5,7 @@ from data import DefaultTheme
 from file_manager import FileTree
 from exceptions import *
 from collections import OrderedDict
+from launcher_gui import run_gui
 
 
 def do_setup():
@@ -84,3 +85,4 @@ if __name__ == "__main__":
     else:
         # SettingsEngine.load_settings()
         pass
+    run_gui()

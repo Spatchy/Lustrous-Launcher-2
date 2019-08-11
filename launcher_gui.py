@@ -2,12 +2,12 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import *
-from processor import ThemeEngine
 from win32api import GetMonitorInfo, MonitorFromPoint
 
 
 class Root(QWidget):
-    def __init__(self):
+    def __init__(self, theme):
+        # noinspection PyArgumentList
         super().__init__()
 
         self.setWindowFlags(Qt.WindowStaysOnTopHint |
@@ -18,6 +18,8 @@ class Root(QWidget):
         self.setGeometry(*self.get_work_area_geometry())
 
         self.installEventFilter(self)
+
+        self.theme = theme
 
         self.show()
 
@@ -50,7 +52,7 @@ class Sidebar(QWidget):
 
 
 class GamePanel(QLabel):
-    def __init__(self, game_object):
+    def __init__(self, game_object,):
         super().__init__()
         self.setMouseTracking(True)
 
@@ -65,10 +67,10 @@ class GamePanel(QLabel):
         return banner_object
 
     def mouse_move_event(self, event):
-        self.setStyleSheet("border: 2px solid " + ThemeEngine.theme_dict["title_outer_highlight_color"])
+        self.setStyleSheet("border: 2px solid " + Root.theme["title_outer_highlight_color"])
 
 
-def run_gui():
+def run_gui(theme):
     app = QApplication(sys.argv)
-    root = Root()
+    root = Root(theme)
     sys.exit(app.exec_())
