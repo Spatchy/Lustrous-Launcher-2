@@ -85,4 +85,5 @@ if __name__ == "__main__":
     else:
         # SettingsEngine.load_settings()
         pass
-    run_gui()
+    ThemeEngine.load_theme()
+    run_gui(ThemeEngine.theme_dict)  # start the GUI passing in the loaded theme
