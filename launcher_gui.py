@@ -19,7 +19,12 @@ class Root(QWidget):
 
         self.installEventFilter(self)
 
+        # set GUI-wide variables
         self.theme = theme
+        self.sidebar_width = 48
+        self.grid_padding = 20
+
+        self.sidebar = Sidebar(self).show()
 
         self.show()
 
@@ -43,16 +48,26 @@ class Root(QWidget):
         return self.width, self.height
 
 
-class Sidebar(QWidget):
-    def __init__(self, height):
+class GameGrid(QWidget):
+    def __init__(self):
+        # noinspection PyArgumentList
         super().__init__()
 
-        self.height = height
-        self.width = 48
+        self.setFixedWidth(self.parent().width-Root.sidebar_width)
+        self.setFixedHeight(self.parent().height)
+
+
+class Sidebar(QWidget):
+    def __init__(self, parent):
+        # noinspection PyArgumentList
+        super().__init__(parent)
+
+        self.height = self.parent().height
+        self.width = self.parent().sidebar_width
 
 
 class GamePanel(QLabel):
-    def __init__(self, game_object,):
+    def __init__(self, game_object):
         super().__init__()
         self.setMouseTracking(True)
 
