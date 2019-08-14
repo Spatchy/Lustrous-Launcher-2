@@ -24,7 +24,8 @@ class Root(QWidget):
         self.sidebar_width = 48
         self.grid_padding = 20
 
-        self.sidebar = Sidebar(self).show()
+        self.sidebar = Sidebar(self)
+        self.sidebar.show()
 
         self.show()
 
@@ -62,8 +63,20 @@ class Sidebar(QWidget):
         # noinspection PyArgumentList
         super().__init__(parent)
 
-        self.height = self.parent().height
+        self.setAttribute(Qt.WA_StyledBackground)  # Allows stylesheets to work
+
+        self.height = self.parent().height()
+        self.setFixedHeight(self.height)
         self.width = self.parent().sidebar_width
+        self.setFixedWidth(self.width)
+
+        self.setStyleSheet("background-color:black;")  # Placeholder only
+
+    # def paintEvent(self, QPaintEvent):
+    #     QStyleOption().__init__(self)
+    #     painter = QStylePainter(self)
+    #     painter.style()
+
 
 
 class GamePanel(QLabel):
