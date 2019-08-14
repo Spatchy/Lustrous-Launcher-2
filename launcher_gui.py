@@ -70,7 +70,10 @@ class Sidebar(QWidget):
         self.width = self.parent().sidebar_width
         self.setFixedWidth(self.width)
 
-        self.setStyleSheet("background-color:black;")  # Placeholder only
+        self.stylesheet_string = """background-color:black; 
+        """  # currently a placeholder
+
+        self.setStyleSheet(self.stylesheet_string)
 
 
 class GamePanel(QLabel):
