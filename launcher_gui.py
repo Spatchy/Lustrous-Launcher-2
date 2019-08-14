@@ -72,12 +72,6 @@ class Sidebar(QWidget):
 
         self.setStyleSheet("background-color:black;")  # Placeholder only
 
-    # def paintEvent(self, QPaintEvent):
-    #     QStyleOption().__init__(self)
-    #     painter = QStylePainter(self)
-    #     painter.style()
-
-
 
 class GamePanel(QLabel):
     def __init__(self, game_object):
