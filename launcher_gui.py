@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 from win32api import GetMonitorInfo, MonitorFromPoint
 
 
-class Root(QWidget):
+class Root(QMainWindow):
     def __init__(self, theme):
         # noinspection PyArgumentList
         super().__init__()
@@ -29,14 +29,15 @@ class Root(QWidget):
 
         self.show()
 
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_Escape:
-            sys.exit()
-
+    # override eventFilter method in QObject to catch keyboard, mouse and other events:
     def eventFilter(self, obj, e):
-        if e.type() == QEvent.WindowDeactivate:
+        if e.type() == QEvent.WindowDeactivate:  # detect when window focus is lost
             print("focus lost")
             sys.exit()
+        elif e.type() == QEvent.KeyPress:
+            if e.key() == Qt.Key_Escape:
+                print("escape pressed")
+                sys.exit()
         return True
 
     @staticmethod
