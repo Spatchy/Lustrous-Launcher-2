@@ -1,8 +1,9 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtGui import QPixmap, QFont, QKeySequence
 from PyQt5.QtCore import *
 from win32api import GetMonitorInfo, MonitorFromPoint
+import re
 
 
 class Root(QMainWindow):
@@ -38,6 +39,9 @@ class Root(QMainWindow):
             if e.key() == Qt.Key_Escape:
                 print("escape pressed")
                 sys.exit()
+            elif re.search('[A-Z0-9]', QKeySequence(e.key()).toString()):
+                print(QKeySequence(e.key()).toString())  # placeholder for search bar!
+
         return True
 
     @staticmethod
