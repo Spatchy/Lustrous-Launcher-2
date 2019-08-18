@@ -24,9 +24,11 @@ class Root(QMainWindow):
         self.theme = theme
         self.sidebar_width = 48
         self.grid_padding = 20
+        self.number_of_columns = 3
 
         self.sidebar = Sidebar(self)
         self.sidebar.show()
+        self.grid = GameGrid(self)
 
         self.show()
 
@@ -55,12 +57,31 @@ class Root(QMainWindow):
 
 
 class GameGrid(QWidget):
-    def __init__(self):
+    def __init__(self, parent, game_object_list):
         # noinspection PyArgumentList
         super().__init__()
 
         self.setFixedWidth(self.parent().width-Root.sidebar_width)
         self.setFixedHeight(self.parent().height)
+
+        self.game_object_list = game_object_list
+        self.game_panel_list = self.create_panels()
+
+    def create_panels(self):
+        game_panel_list = []
+        for game_object in self.game_object_list:
+            game_panel_list.append(GamePanel(self, game_object))
+        return game_panel_list
+
+    def populate(self):  # NUMBERS WILL CHANGE AND WILL LIKELY BE ABSTRACTED TO SETTINGS
+        i = 0
+        for panel in self.game_panel_list:
+            panel.col = i % Root.number_of_columns
+            panel.row = i / Root.number_of_columns
+            x = 20 + (panel.col * 460) + (panel.col * 20)  # initial padding + width of preceding panels + padding
+            y = 20 + (panel.row * 215) + (panel.row * 20)  # same as above but for height
+            panel.move(x, y)
+            panel.show()
 
 
 class Sidebar(QWidget):
@@ -82,12 +103,15 @@ class Sidebar(QWidget):
 
 
 class GamePanel(QLabel):
-    def __init__(self, game_object):
+    def __init__(self, parent, game_object):
         super().__init__()
         self.setMouseTracking(True)
 
         self.game = game_object
         self.banner = self.create_banner
+
+        self.col = None  # initialize column (set by parent grid)
+        self.row = None  # initialize row (set by parent grid)
 
         self.setPixmap(self.banner)
         self.setStyleSheet("border: 2px solid #00000000")
