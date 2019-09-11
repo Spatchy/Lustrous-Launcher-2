@@ -4,10 +4,11 @@ from PyQt5.QtGui import QPixmap, QFont, QKeySequence
 from PyQt5.QtCore import *
 from win32api import GetMonitorInfo, MonitorFromPoint
 import re
+from program_launcher import launch
 
 
 class Root(QMainWindow):
-    def __init__(self, theme):
+    def __init__(self, theme, game_dict):
         # noinspection PyArgumentList
         super().__init__()
 
@@ -26,9 +27,11 @@ class Root(QMainWindow):
         self.grid_padding = 20
         self.number_of_columns = 3
 
+        self.game_dict = game_dict
+
         self.sidebar = Sidebar(self)
         self.sidebar.show()
-        self.grid = GameGrid(self)
+        self.grid = GameGrid(self, self.game_dict)
 
         self.show()
 
@@ -57,20 +60,26 @@ class Root(QMainWindow):
 
 
 class GameGrid(QWidget):
-    def __init__(self, parent, game_object_list):
+    def __init__(self, parent, game_dict):
         # noinspection PyArgumentList
         super().__init__()
 
-        self.setFixedWidth(self.parent().width-Root.sidebar_width)
-        self.setFixedHeight(self.parent().height)
+        self.parent = parent
 
-        self.game_object_list = game_object_list
+        self.setFixedWidth(self.parent.width - Root.sidebar_width)
+        self.setFixedHeight(self.parent.height)
+
+        self.game_dict = game_dict
         self.game_panel_list = self.create_panels()
+        if self.game_panel_list:  # if list is not empty
+            self.populate()
+        else:
+            pass  # placeholder for now
 
     def create_panels(self):
         game_panel_list = []
-        for game_object in self.game_object_list:
-            game_panel_list.append(GamePanel(self, game_object))
+        for game_data in self.game_dict:  # each game_data is a dictionary containing data from create_game_dict()
+            game_panel_list.append(GamePanel(self, game_data))
         return game_panel_list
 
     def populate(self):  # NUMBERS WILL CHANGE AND WILL LIKELY BE ABSTRACTED TO SETTINGS
@@ -103,11 +112,13 @@ class Sidebar(QWidget):
 
 
 class GamePanel(QLabel):
-    def __init__(self, parent, game_object):
+    def __init__(self, parent, game_data):
         super().__init__()
         self.setMouseTracking(True)
 
-        self.game = game_object
+        self.parent = parent
+
+        self.game_data = game_data
         self.banner = self.create_banner
 
         self.col = None  # initialize column (set by parent grid)
@@ -117,14 +128,17 @@ class GamePanel(QLabel):
         self.setStyleSheet("border: 2px solid #00000000")
 
     def create_banner(self):
-        banner_object = QPixmap(self.banner_path)
+        banner_object = QPixmap(self.game_data["banner_path"])
         return banner_object
 
     def mouse_move_event(self, event):
         self.setStyleSheet("border: 2px solid " + Root.theme["title_outer_highlight_color"])
 
+    def mousePressEvent(self, QMouseEvent):
+        launch(self.game_data["game_path"])
 
-def run_gui(theme):
+
+def run_gui(theme, game_dict):
     app = QApplication(sys.argv)
-    root = Root(theme)
+    root = Root(theme, game_dict)
     sys.exit(app.exec_())

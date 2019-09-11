@@ -59,11 +59,3 @@ class DefaultTheme(Enum):
     TITLE_OUTER_HIGHLIGHT_COLOR = "#777777"  # the outer highlight when a game is hovered over
     TITLE_INNER_HIGHLIGHT_COLOR = PRIMARY_COLOR  # the color of a game selected for editing
     SEARCHBAR_BACKGROUND_COLOR = SIDEBAR_BACKGROUND_COLOR  # the color of the searchbar
-
-
-class Game:
-    def __init__(self, name, banner_path, link, platform):
-        self.name = name
-        self.banner_path = banner_path
-        self.link = link
-        self.platform = platform

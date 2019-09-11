@@ -1,5 +1,4 @@
 from data import AppMeta
-from data import Game
 from data import DefaultSettings
 from data import DefaultTheme
 from file_manager import FileTree
@@ -21,7 +20,10 @@ def create_game_dict():  # creates alphabetized OrderedDict of all games from ga
         game_path = file_json["path"]
         banner_name = file_json["banner_path"]
         platform = file_json["platform"]
-        game_dict[game_title] = Game(game_title, game_path, banner_name, platform)
+        game_dict[game_title] = {"game_title": game_title,
+                                 "game_path": game_path,
+                                 "banner_name": banner_name,
+                                 "platform": platform}
     return game_dict
 
 
@@ -86,4 +88,4 @@ if __name__ == "__main__":
         # SettingsEngine.load_settings()
         pass
     ThemeEngine.load_theme()
-    run_gui(ThemeEngine.theme_dict)  # start the GUI passing in the loaded theme
+    to_run = run_gui(ThemeEngine.theme_dict, create_game_dict())  # start the GUI passing in the loaded theme
