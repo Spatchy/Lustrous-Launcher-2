@@ -14,7 +14,7 @@ def do_setup():
 
 def create_game_dict():  # creates alphabetized OrderedDict of all games from games dir
     game_dict = OrderedDict()
-    for file in FileTree.dir_contents(AppMeta.DIRS["games"]):
+    for file in FileTree.dir_contents(AppMeta.DIRS.value["games"]):
         file_json = FileTree.read_file(file)
         game_title = file_json["title"]
         game_path = file_json["path"]

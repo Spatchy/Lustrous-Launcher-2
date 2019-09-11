@@ -66,8 +66,8 @@ class GameGrid(QWidget):
 
         self.parent = parent
 
-        self.setFixedWidth(self.parent.width - Root.sidebar_width)
-        self.setFixedHeight(self.parent.height)
+        self.setFixedWidth(self.parent.width() - self.parent.sidebar_width)
+        self.setFixedHeight(self.parent.height())
 
         self.game_dict = game_dict
         self.game_panel_list = self.create_panels()

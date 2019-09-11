@@ -7,6 +7,7 @@ from collections import OrderedDict
 
 # Contains/generates various metadata
 class AppMeta(Enum):
+    _settings_ = NoAlias
 
     @staticmethod
     def check_frozen():
