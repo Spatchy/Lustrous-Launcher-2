@@ -1,3 +1,6 @@
 .idea/
 venv/
+games/
+banners/
+themes/
 settings.json
