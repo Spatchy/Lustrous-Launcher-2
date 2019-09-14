@@ -29,5 +29,10 @@ class FileTree:
         return json.loads(contents)
 
     @staticmethod
-    def dir_contents(path):
-        return glob.glob(path)
+    def dir_contents(path, file_type=""):
+        return glob.glob(path + "/" + file_type)
+
+    @staticmethod
+    def check_if_empty(path, file_type=""):
+        if len(FileTree.dir_contents(path, file_type)) == 0:
+            return True

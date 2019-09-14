@@ -13,6 +13,8 @@ def do_setup():
 
 
 def create_game_dict():  # creates alphabetized OrderedDict of all games from games dir
+    if FileTree.check_if_empty(AppMeta.DIRS.value["games"], file_type="*.json"):
+        return None
     game_dict = OrderedDict()
     for file in FileTree.dir_contents(AppMeta.DIRS.value["games"]):
         file_json = FileTree.read_file(file)
@@ -80,9 +82,9 @@ class ThemeEngine:
 
 # Is immediately run on program launch
 if __name__ == "__main__":
-    if AppMeta.IS_FIRST_LAUNCH:
-        # do_setup()
-        # SettingsEngine.apply_default_settings()
+    if AppMeta.IS_FIRST_LAUNCH.value:
+        do_setup()
+        SettingsEngine.apply_default_settings()
         pass
     else:
         # SettingsEngine.load_settings()

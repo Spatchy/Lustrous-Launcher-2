@@ -70,10 +70,11 @@ class GameGrid(QWidget):
         self.setFixedHeight(self.parent.height())
 
         self.game_dict = game_dict
-        self.game_panel_list = self.create_panels()
-        if self.game_panel_list:  # if list is not empty
+        if self.game_dict:
+            self.game_panel_list = self.create_panels()
             self.populate()
         else:
+            print("game_dict is empty")
             pass  # placeholder for now
 
     def create_panels(self):
