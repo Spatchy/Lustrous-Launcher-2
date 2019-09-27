@@ -80,7 +80,7 @@ class GameGrid(QWidget):
     def create_panels(self):
         game_panel_list = []
         for game_data in self.game_dict:  # each game_data is a dictionary containing data from create_game_dict()
-            game_panel_list.append(GamePanel(self, game_data))
+            game_panel_list.append(GamePanel(self, self.game_dict[game_data]))
         return game_panel_list
 
     def populate(self):  # NUMBERS WILL CHANGE AND WILL LIKELY BE ABSTRACTED TO SETTINGS
@@ -120,7 +120,7 @@ class GamePanel(QLabel):
         self.parent = parent
 
         self.game_data = game_data
-        self.banner = self.create_banner
+        self.banner = self.create_banner()
 
         self.col = None  # initialize column (set by parent grid)
         self.row = None  # initialize row (set by parent grid)
@@ -129,7 +129,7 @@ class GamePanel(QLabel):
         self.setStyleSheet("border: 2px solid #00000000")
 
     def create_banner(self):
-        banner_object = QPixmap(self.game_data["banner_path"])
+        banner_object = QPixmap(self.game_data["banner_name"])
         return banner_object
 
     def mouse_move_event(self, event):
