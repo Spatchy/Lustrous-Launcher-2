@@ -16,11 +16,11 @@ def create_game_dict():  # creates alphabetized OrderedDict of all games from ga
     if FileTree.check_if_empty(AppMeta.DIRS.value["games"], file_type="*.json"):
         return None
     game_dict = OrderedDict()
-    for file in FileTree.dir_contents(AppMeta.DIRS.value["games"]):
+    for file in FileTree.dir_contents(AppMeta.DIRS.value["games"], file_type="*.json"):
         file_json = FileTree.read_file(file)
-        game_title = file_json["title"]
-        game_path = file_json["path"]
-        banner_name = file_json["banner_path"]
+        game_title = file_json["game_title"]
+        game_path = file_json["game_path"]
+        banner_name = file_json["banner_name"]
         platform = file_json["platform"]
         game_dict[game_title] = {"game_title": game_title,
                                  "game_path": game_path,
