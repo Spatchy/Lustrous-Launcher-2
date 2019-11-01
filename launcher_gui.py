@@ -86,8 +86,8 @@ class GameGrid(QWidget):
     def populate(self):  # NUMBERS WILL CHANGE AND WILL LIKELY BE ABSTRACTED TO SETTINGS
         i = 0
         for panel in self.game_panel_list:
-            panel.col = i % Root.number_of_columns
-            panel.row = i / Root.number_of_columns
+            panel.col = i % self.parent.number_of_columns
+            panel.row = i / self.parent.number_of_columns
             x = 20 + (panel.col * 460) + (panel.col * 20)  # initial padding + width of preceding panels + padding
             y = 20 + (panel.row * 215) + (panel.row * 20)  # same as above but for height
             panel.move(x, y)
